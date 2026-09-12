@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bow & Brew | Coquette Café (Bootstrap 5)</title>
+
+    <!-- 1. Offline Local Linkage to Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="bootstrap5/css/bootstrap.min.css">
+    
+    <!-- External Google Fonts & Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        /* Custom Coquette Styling with Bootstrap 5 Overrides */
+        :root {
+            --bg-pastel: #fde8ed;
+            --text-pink: #b56576;
+            --title-pink: #c57196;
+            --accent-pink: #e8a0bf;
+            --card-border: #e8a0bf;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--bg-pastel);
+            color: var(--text-pink);
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode Toggle Overrides */
+        body.dark-mode {
+            --bg-pastel: #2b1e23;
+            --text-pink: #f2c4ce;
+            --title-pink: #f7a8c4;
+            --accent-pink: #8c4a5c;
+            --card-border: #8c4a5c;
+            background-color: #1a1215 !important;
+            color: #f2c4ce !important;
+        }
+
+        body.dark-mode .navbar, 
+        body.dark-mode .card, 
+        body.dark-mode .contact-wrapper,
+        body.dark-mode footer {
+            background-color: #2b1e23 !important;
+            color: #f2c4ce !important;
+            border-color: var(--card-border) !important;
+        }
+
+        /* Typography & Custom Classes */
+        .parisienne-font {
+            font-family: 'Parisienne', cursive;
+        }
+
+        .section-title {
+            font-family: 'Parisienne', cursive;
+            font-size: 4rem;
+            color: var(--title-pink);
+        }
+
+        .pink-divider {
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-pink);
+            margin: 0.5rem auto 1.5rem auto;
+            border-radius: 2px;
+        }
+
+        .btn-coquette {
+            background-color: var(--accent-pink);
+            color: white;
+            border: 1px solid var(--text-pink);
+            border-radius: 20px;
+            font-weight: bold;
+            padding: 8px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-coquette:hover {
+            background-color: var(--text-pink);
+            color: white;
+        }
+
+        /* Section Ribbon Line Dividers */
+        section {
+            position: relative;
+            padding-bottom: 3.5rem;
+        }
+
+        section::after {
+            content: "⊹₊˚‧︵‿₊୨୧₊‿︵‧˚₊⊹";
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-pink);
+            font-size: 1.3rem;
+            white-space: nowrap;
+        }
+
+        header::after, footer::after {
+            display: none;
+        }
+
+        textarea {
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- IV.a Navigation Bar                       -->
+    <!-- ========================================== -->
+    <nav class="navbar navbar-expand-lg sticky-top border-bottom border-danger-subtle shadow-sm" style="background-color: var(--bg-pastel);">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#home">
+                <img src="images/logo.png" alt="Bow & Brew Logo" width="50" height="50" class="me-2 rounded-circle border border-pink" onerror="this.src='https://via.placeholder.com/50?text=Logo'">
+                <span class="parisienne-font fs-1 fw-bold" style="color: var(--text-pink);">Bow & Brew</span>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center text-center">
+                    <li class="nav-item"><a class="nav-link fw-bold px-3" style="color: var(--text-pink);" href="#home">Home ꫂ᭪</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold px-3" style="color: var(--text-pink);" href="#about">About ꫂ᭪</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold px-3" style="color: var(--text-pink);" href="#features">Features ꫂ᭪</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold px-3" style="color: var(--text-pink);" href="#pricing">Menu ꫂ᭪</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold px-3" style="color: var(--text-pink);" href="#testimonials">Reviews ꫂ᭪</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold px-3" style="color: var(--text-pink);" href="#contact">Contact ꫂ᭪</a></li>
+                    <!-- Dark/Light Mode Toggle Button -->
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <button id="themeToggleBtn" class="btn btn-sm btn-outline-danger rounded-circle">
+                            <i id="themeIcon" class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- IV.b Hero Header Section                   -->
+    <!-- ========================================== -->
+    <header id="home" class="py-5 text-center bg-light-subtle border-bottom" style="background: linear-gradient(rgba(253, 232, 237, 0.85), rgba(253, 232, 237, 0.85)), url('images/Hero.png') center/cover no-repeat;">
+        <div class="container py-4">
+            <span class="badge rounded-pill text-bg-danger mb-3 px-3 py-2 fs-6">✦ Coquette Aesthetic Café ✦</span>
+            <div class="mb-3">
+                <img src="images/logo.png" alt="Logo" class="rounded-circle shadow-sm" width="130" height="130" onerror="this.src='https://via.placeholder.com/130?text=Bow+%26+Brew'">
+            </div>
+            <h1 class="display-1 parisienne-font fw-bold" style="color: var(--title-pink);">Bow & Brew</h1>
+            <p class="fs-3 fst-italic fw-semibold" style="color: var(--title-pink);">Sip in Sweetness, Wrapped in Elegance ۶۟ৎ</p>
+            <p class="col-lg-7 mx-auto fs-5 mb-4">
+                A coquette café where every sip and bite is a delicate experience. Indulge in our handcrafted beverages and sweet treats, all served in a charming, pastel-hued setting.
+            </p>
+            <a href="#pricing" class="btn btn-coquette btn-lg shadow-sm">⋆˚࿔ Explore Our Menu ꫂ᭪ ˚࿔⋆</a>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 text-center">
+        <div class="container">
+            <h2 class="section-title">⋆˚࿔ About Us ꫂ᭪ ˚࿔⋆</h2>
+            <div class="pink-divider"></div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h3 class="fs-3 fst-italic fw-semibold">Crafted with Passion ⋆˚࿔</h3>
+                    <p>Every cup and pastry at Bow & Brew is made using organic floral syrups, premium espresso, and locally sourced ingredients.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="fs-3 fst-italic fw-semibold">Cozy Sanctuary ⨾𓍢ִ໋</h3>
+                    <p>Step into a vintage-inspired haven designed for comfort with plush seating, warm lighting, and free Wi-Fi.</p>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="fs-3 fst-italic fw-semibold">Delicate Touches ༘⋆</h3>
+                    <p>From our signature bow latte art to our daily-baked French macarons, we create sweet, picture-perfect moments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- IV.c Feature Cards Section                 -->
+    <!-- ========================================== -->
+    <section id="features" class="py-5 text-center">
+        <div class="container">
+            <h2 class="section-title">⋆˚࿔ Why Choose Us ⋆˚࿔</h2>
+            <div class="pink-divider"></div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-danger-subtle rounded-4 p-4 text-center">
+                        <div class="fs-1 mb-2" style="color: var(--title-pink);"><i class="bi bi-heart-fill"></i></div>
+                        <h3 class="card-title h4 fw-bold">Whimsical Bow Styling</h3>
+                        <p class="card-text">Every drink and pastry is crowned with our iconic bow detail for a magical experience.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-danger-subtle rounded-4 p-4 text-center">
+                        <div class="fs-1 mb-2" style="color: var(--title-pink);"><i class="bi bi-cup-hot-fill"></i></div>
+                        <h3 class="card-title h4 fw-bold">Baked with Charm</h3>
+                        <p class="card-text">Our vintage cakes and delicate macarons are freshly handcrafted every morning using rich ingredients.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-danger-subtle rounded-4 p-4 text-center">
+                        <div class="fs-1 mb-2" style="color: var(--title-pink);"><i class="bi bi-stars"></i></div>
+                        <h3 class="card-title h4 fw-bold">A Sweet Escape</h3>
+                        <p class="card-text">Immerse yourself in a dreamy, romantic atmosphere with cozy corners, friendly smiles, and free Wi-Fi.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- IV.d Pricing / Menu Section                -->
+    <!-- ========================================== -->
+    <section id="pricing" class="py-5 text-center">
+        <div class="container">
+            <h2 class="section-title">⋆˚࿔ Menu Highlights ꫂ᭪ ˚࿔⋆</h2>
+            <div class="pink-divider"></div>
+            <p class="fs-5 mb-4">Handcrafted beverages and sweet treats made daily with love. ♡</p>
+            
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+                <!-- Product Card 1 -->
+                <div class="col">
+                    <div class="card h-100 border-danger-subtle rounded-3 shadow-sm p-3 d-flex flex-column justify-content-between">
+                        <img src="images/product1.jpg" class="card-img-top rounded mb-2" alt="Rose Latte" style="height:150px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/200x150?text=Rose+Latte'">
+                        <div>
+                            <h5 class="card-title fw-bold">Ribbon Rose Latte</h5>
+                            <p class="card-text small text-muted">Espresso infused with organic rose syrup & pink foam.</p>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold d-block mb-2" style="color: var(--text-pink);">₱180.00</span>
+                            <button class="btn btn-coquette w-100 order-btn" data-product="Ribbon Rose Latte">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 2 -->
+                <div class="col">
+                    <div class="card h-100 border-danger-subtle rounded-3 shadow-sm p-3 d-flex flex-column justify-content-between">
+                        <img src="images/product2.jpg" class="card-img-top rounded mb-2" alt="Macarons" style="height:150px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/200x150?text=Macarons'">
+                        <div>
+                            <h5 class="card-title fw-bold">Ballet Macarons</h5>
+                            <p class="card-text small text-muted">Delicate French macarons with strawberry buttercream.</p>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold d-block mb-2" style="color: var(--text-pink);">₱70.00 / pc</span>
+                            <button class="btn btn-coquette w-100 order-btn" data-product="Ballet Slipper Macarons">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 3 -->
+                <div class="col">
+                    <div class="card h-100 border-danger-subtle rounded-3 shadow-sm p-3 d-flex flex-column justify-content-between">
+                        <img src="images/product3.jpg" class="card-img-top rounded mb-2" alt="Lace Cake" style="height:150px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/200x150?text=Lace+Cake'">
+                        <div>
+                            <h5 class="card-title fw-bold">Vintage Lace Cake</h5>
+                            <p class="card-text small text-muted">Vanilla bean cake slice with pipe-work frosting.</p>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold d-block mb-2" style="color: var(--text-pink);">₱150.00 / slice</span>
+                            <button class="btn btn-coquette w-100 order-btn" data-product="Vintage Lace Cake">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product Card 4 -->
+                <div class="col">
+                    <div class="card h-100 border-danger-subtle rounded-3 shadow-sm p-3 d-flex flex-column justify-content-between">
+                        <img src="images/product4.jpg" class="card-img-top rounded mb-2" alt="Matcha" style="height:150px; object-fit:cover;" onerror="this.src='https://via.placeholder.com/200x150?text=Pink+Matcha'">
+                        <div>
+                            <h5 class="card-title fw-bold">Pink Velvet Matcha</h5>
+                            <p class="card-text small text-muted">Uji matcha layered over sweetened strawberry oat milk.</p>
+                        </div>
+                        <div>
+                            <span class="fs-5 fw-bold d-block mb-2" style="color: var(--text-pink);">₱200.00</span>
+                            <button class="btn btn-coquette w-100 order-btn" data-product="Pink Velvet Matcha">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- IV.e Testimonials Carousel Section        -->
+    <!-- ========================================== -->
+    <section id="testimonials" class="py-5 text-center">
+        <div class="container">
+            <h2 class="section-title">⋆˚࿔ Customer Reviews ꫂ᭪ ˚࿔⋆</h2>
+            <div class="pink-divider"></div>
+
+            <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner col-md-8 mx-auto">
+                    <div class="carousel-item active">
+                        <div class="card p-4 border-danger-subtle shadow-sm rounded-4">
+                            <p class="fs-4 fst-italic">"The prettiest café I have ever visited! The Ribbon Rose Latte tastes as good as it looks!"</p>
+                            <h5 class="fw-bold mt-2">- Keziah L.</h5>
+                            <div class="text-warning fs-5">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card p-4 border-danger-subtle shadow-sm rounded-4">
+                            <p class="fs-4 fst-italic">"Such a lovely coquette atmosphere. Perfect place to catch up with friends or read a book."</p>
+                            <h5 class="fw-bold mt-2">- Emma R.</h5>
+                            <div class="text-warning fs-5">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card p-4 border-danger-subtle shadow-sm rounded-4">
+                            <p class="fs-4 fst-italic">"The strawberry macarons are incredible and the staff is so sweet and welcoming!"</p>
+                            <h5 class="fw-bold mt-2">- Chloe M.</h5>
+                            <div class="text-warning fs-5">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-danger rounded-circle p-2" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-danger rounded-circle p-2" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- IV.f Contact Form Section                 -->
+    <!-- ========================================== -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">⋆˚࿔ Contact Us ꫂ᭪ ˚࿔⋆</h2>
+            <div class="pink-divider"></div>
+
+            <div class="contact-wrapper bg-white p-4 p-md-5 rounded-4 shadow-sm border border-danger-subtle">
+                <div class="row g-4">
+                    <div class="col-md-5">
+                        <h3 class="fs-3 fw-bold mb-3" style="color: var(--text-pink);">⋆˚࿔ Get in Touch ꫂ᭪</h3>
+                        <p><strong>Address:</strong> Luna St. Tuy, Batangas</p>
+                        <p><strong>Phone:</strong> 0912-345-6789</p>
+                        <p><strong>Email:</strong> hello@bowandbrew.com</p>
+                        <p><strong>Hours:</strong> Mon - Sat: 8:00 AM - 10:00 PM</p>
+                        <p><strong>Follow Us:</strong> @BowAndBrewCafe</p>
+                    </div>
+
+                    <div class="col-md-7">
+                        <form id="contactForm">
+                            <h3 class="fs-3 fw-bold mb-3" style="color: var(--text-pink);">⋆˚࿔ Send Us a Message ꫂ᭪</h3>
+                            <div class="mb-3">
+                                <label for="fullname" class="form-label fw-bold">Full Name ꫂ᭪</label>
+                                <input type="text" id="fullname" name="fullname" class="form-control border-danger-subtle" placeholder="Full Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-bold">Email ꫂ᭪</label>
+                                <input type="email" id="email" name="email" class="form-control border-danger-subtle" placeholder="Email Address" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label fw-bold">Subject ꫂ᭪</label>
+                                <input type="text" id="subject" name="subject" class="form-control border-danger-subtle" placeholder="Subject">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label fw-bold">Message ꫂ᭪</label>
+                                <textarea id="message" name="message" class="form-control border-danger-subtle" rows="4" placeholder="Message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-coquette w-100">Send Message ꫂ᭪</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center border-top border-danger-subtle" style="background-color: var(--bg-pastel);">
+        <div class="container">
+            <h3 class="parisienne-font fs-1 fw-bold" style="color: var(--text-pink);">Bow & Brew</h3>
+            <p class="mb-2">&copy; 2026 Bow & Brew Café. All rights reserved.</p>
+            <div class="mb-2">
+                <a href="#home" class="text-decoration-none px-2" style="color: var(--text-pink);">Home</a> |
+                <a href="#about" class="text-decoration-none px-2" style="color: var(--text-pink);">About</a> |
+                <a href="#pricing" class="text-decoration-none px-2" style="color: var(--text-pink);">Menu</a> |
+                <a href="#contact" class="text-decoration-none px-2" style="color: var(--text-pink);">Contact</a>
+            </div>
+            <p class="small mb-0">Instagram: @BowAndBrewCafe | Pinterest: @BowAndBrew</p>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- Scripts Linkages                           -->
+    <!-- ========================================== -->
+    <!-- 1. Offline Local Linkage to Bootstrap 5 JS -->
+    <script src="bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Client-Side Interactivity Scripts -->
+    <script>
+        // 1. Dark/Light Mode Toggler
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                themeIcon.classList.remove('bi-moon-fill');
+                themeIcon.classList.add('bi-sun-fill');
+            } else {
+                themeIcon.classList.remove('bi-sun-fill');
+                themeIcon.classList.add('bi-moon-fill');
+            }
+        });
+
+        // 2. Order Buttons Interactivity with SweetAlert2
+        const orderBtns = document.querySelectorAll('.order-btn');
+        orderBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productName = this.getAttribute('data-product');
+                Swal.fire({
+                    title: 'Add to Order?',
+                    text: `Would you like to order ${productName}?`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#e8a0bf',
+                    cancelButtonColor: '#b56576',
+                    confirmButtonText: 'Yes, Order Now! ☕'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Added!',
+                            text: `${productName} has been added to your order!`,
+                            icon: 'success',
+                            confirmButtonColor: '#e8a0bf'
+                        });
+                    }
+                });
+            });
+        });
+
+        // 3. Contact Form Submission with SweetAlert2
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('fullname').value;
+            
+            Swal.fire({
+                title: 'Message Sent! 💌',
+                text: `Thank you, ${name}! We have received your message and will get back to you soon.`,
+                icon: 'success',
+                confirmButtonColor: '#e8a0bf'
+            });
+
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
